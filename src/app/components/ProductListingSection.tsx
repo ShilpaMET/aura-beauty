@@ -1,50 +1,42 @@
 // src/app/components/ProductListingSection.tsx
 'use client';
-import React, { useState } from 'react';
-import { StoryblokComponent } from '@storyblok/react';
+
+import { storyblokEditable } from '@storyblok/react';
+import Link from 'next/link';
 
 export default function ProductListingSection({ blok }: any) {
-  const [filterOpen, setFilterOpen] = useState(false);
+  const products = blok.products || []; // ✅ correct field name
 
   return (
-    <section className='max-w-7xl mx-auto px-4 py-12'>
-      <div className='flex justify-between items-center mb-8'>
-        <h1 className='text-4xl font-bold'>{blok.title || 'Products'}</h1>
-        <button
-          onClick={() => setFilterOpen(!filterOpen)}
-          className='border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50'
-        >
-          {filterOpen ? 'Close Filter' : 'Filter'}
-        </button>
-      </div>
+    <section {...storyblokEditable(blok)} className='p-10'>
+      <h2 className='text-2xl font-bold mb-6'>{blok.heading || 'Serums'}</h2>
 
-      <div className='flex gap-8'>
-        {/* Filters Section */}
-        {filterOpen && blok.filters && (
-          <aside className='w-64 shrink-0 border border-gray-200 p-6 rounded-lg h-fit bg-white'>
-            {blok.filters.map((filterBlok: any) => {
-              return (
-                <StoryblokComponent blok={filterBlok} key={filterBlok._uid} />
-              );
-            })}
-          </aside>
-        )}
-
-        {/* Products Grid */}
-        <div
-          className={`grid gap-8 ${
-            filterOpen
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-              : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
-          } flex-1`}
-        >
-          {blok.products?.map((productBlok: any) => {
-            return (
-              <StoryblokComponent blok={productBlok} key={productBlok._uid} />
-            );
-          })}
+      {products.length === 0 ? (
+        <p className='text-gray-500'>No products found.</p>
+      ) : (
+        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
+          {products.map((product: any) => (
+            <Link
+              href={`/serums/${product.name.toLowerCase().replace(/\s+/g, '-')}`}
+              key={product._uid}
+              className='border rounded-lg p-4 hover:shadow-lg transition-all'
+            >
+              {product.image?.filename && (
+                <img
+                  src={product.image.filename}
+                  alt={product.name}
+                  className='w-full h-48 object-cover rounded-md mb-4'
+                />
+              )}
+              <h3 className='font-semibold'>{product.name}</h3>
+              <p className='text-gray-500 line-through'>${product.price}</p>
+              <p className='text-green-600 font-bold'>
+                ${product.discount_price}
+              </p>
+            </Link>
+          ))}
         </div>
-      </div>
+      )}
     </section>
   );
 }
