@@ -5,6 +5,7 @@ import Hero from '@/app/components/Hero/Hero';
 import HeroSlider from '@/app/components/Hero/HeroSlider';
 import AboutUs from '../components/AboutUs';
 import Feature from '../components/Feature';
+import Navbar from '../components/Navbar';
 import Faq from '../components/FAQ/Faq';
 import Footer from '../components/Footer/Footer';
 import FooterColumn from '../components/Footer/FooterColumn';
@@ -20,6 +21,7 @@ export const getStoryblok = () => {
       accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
       use: [apiPlugin],
       components: {
+        navbar: Navbar,
         page: Page,
         hero: Hero,
         hero_slider: HeroSlider,
