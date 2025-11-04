@@ -3,8 +3,6 @@ import { storyblokEditable } from '@storyblok/react';
 import Image from 'next/image';
 
 export default function Feature({ blok }: any) {
-  //   console.log("🚀 ~ Feature ~ blok:", blok);
-
   return (
     <section
       {...storyblokEditable(blok)}

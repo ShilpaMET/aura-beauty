@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { StoryblokComponent } from '@storyblok/react';
 
 export default function ProductListingSection({ blok }) {
-  console.log("🚀 ~ ProductListingSection ~ blok:", blok)
   const [filterOpen, setFilterOpen] = useState(false);
 
   return (
@@ -24,7 +23,6 @@ export default function ProductListingSection({ blok }) {
         {filterOpen && blok.filters && (
           <aside className="w-64 shrink-0 border border-gray-200 p-6 rounded-lg h-fit bg-white">
             {blok.filters.map((filterBlok) => {
-              console.log("🚀 ~ ProductListingSection ~ filterBlok:", filterBlok)
               return <StoryblokComponent blok={filterBlok} key={filterBlok._uid} />;
             })}
           </aside>
@@ -39,7 +37,6 @@ export default function ProductListingSection({ blok }) {
           } flex-1`}
         >
           {blok.products?.map((productBlok) => {
-            console.log("🚀 ~ ProductListingSection ~ productBlok:", productBlok)
             return <StoryblokComponent blok={productBlok} key={productBlok._uid} />;
           })}
         </div>

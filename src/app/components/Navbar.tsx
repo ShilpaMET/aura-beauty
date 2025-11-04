@@ -6,8 +6,6 @@ import Link from "next/link";
 import { FaSearch, FaShoppingCart } from "react-icons/fa"; 
 
 export default function Navbar({ blok }: { blok: any }) {
-  console.log("Full navbar blok:", JSON.stringify(blok, null, 2));
-
   const logo = blok?.logo?.filename || "";
   const tableData = blok?.menu_items?.[0]?.items;
 
