@@ -5,7 +5,6 @@ import Feature from './Feature';
 import AboutUs from './AboutUs';
 import ProductListingSection from './ProductListingSection';
 import Product from './Product';
-import Navbar from './Navbar';
 import Hero from './Hero/Hero';
 import Faq from './FAQ/Faq';
 import FaqItem from './FAQ/FaqItem';
@@ -20,7 +19,6 @@ storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
   use: [apiPlugin],
   components: {
-    navbar: Navbar,
     hero: Hero,
     about: AboutUs,
     feature: Feature,

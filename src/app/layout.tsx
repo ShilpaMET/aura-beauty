@@ -1,33 +1,31 @@
-// src/app/layout.tsx
-import './components/StoryblokProvider';
-import './globals.css';
-import './lib/storyblok';
+import "./globals.css";
+import { StoryblokComponent } from "@storyblok/react";
+import { getStoryblok } from "./lib/storyblok";
+import { StoryblokProvider } from "./components/StoryblokProvider";
+import Navbar from "./components/Navbar";
 
-import { StoryblokComponent } from '@storyblok/react';
-import { getStoryblok } from './lib/storyblok';
-import { StoryblokProvider } from './components/StoryblokProvider';
-
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }) {
   const storyblokApi = getStoryblok();
 
-  // Fetch your global footer
-  const { data } = await storyblokApi.get('cdn/stories/footer', {
-    version: 'draft', // change to "published" in production
+  const navbarRes = await storyblokApi.get("cdn/stories/navbar", {
+    version: "draft",
   });
-
-  const footerContent = data.story?.content;
+  const navbarBlok = navbarRes?.data?.story?.content;
+  const footerRes = await storyblokApi.get("cdn/stories/footer", {
+    version: "draft",
+  });
+  const footerBlok = footerRes?.data?.story?.content;
 
   return (
-    <html lang='en'>
-      <body className='bg-gray-50 text-gray-900'>
+    <html lang="en">
+      <body className="bg-gray-50 text-gray-900">
         <StoryblokProvider>
-          {children}
-          {footerContent?.body?.[0] && (
-            <StoryblokComponent blok={footerContent.body[0]} />
+          {navbarBlok?.body?.[0] && <Navbar blok={navbarBlok.body[0]} />}
+
+          <main>{children}</main>
+
+          {footerBlok?.body?.[0] && (
+            <StoryblokComponent blok={footerBlok.body[0]} />
           )}
         </StoryblokProvider>
       </body>
