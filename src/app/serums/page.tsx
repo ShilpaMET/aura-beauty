@@ -5,7 +5,7 @@ import { StoryblokComponent } from '@storyblok/react';
 export default async function SerumsPage() {
   const storyblokApi = getStoryblok();
   const { data } = await storyblokApi.get('cdn/stories/serums', {
-    version: 'draft',
+    version: process.env.NODE_ENV === "development" ? "draft" : "published",
     resolve_relations: ['product_listing_section.product_items'],
   });
 

@@ -15,7 +15,7 @@ interface AboutUsProps {
 }
 
 export default function AboutUs({ blok }: AboutUsProps) {
-  console.log(blok);
+
   
   return (
     <section

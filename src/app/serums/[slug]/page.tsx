@@ -12,7 +12,7 @@ export default async function SerumDetailPage({
 
   try {
     const { data } = await storyblokApi.get(`cdn/stories/serums/${slug}`, {
-      version: 'draft',
+      version: process.env.NODE_ENV === "development" ? "draft" : "published",
     });
 
     const body = data.story.content.body || [];

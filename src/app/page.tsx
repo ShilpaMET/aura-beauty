@@ -7,7 +7,7 @@ export default async function HomePage() {
   const storyblokApi = getStoryblok();
 
   const { data } = await storyblokApi.get('cdn/stories/home', {
-    version: 'draft', // or "published"
+    version: process.env.NODE_ENV === "development" ? "draft" : "published",
   });
 
   const body = data.story.content.body || [];
