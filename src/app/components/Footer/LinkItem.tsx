@@ -1,10 +1,10 @@
 'use client';
 
-import { storyblokEditable } from "@storyblok/react";
+import { storyblokEditable } from '@storyblok/react';
 
-const LinkItem = ({ blok }:any) => (
+const LinkItem = ({ blok }: any) => (
   <li {...storyblokEditable(blok)}>
-    <a href={blok.link?.url} className="hover:underline">
+    <a href={blok.link?.url} className='hover:underline'>
       {blok.label}
     </a>
   </li>

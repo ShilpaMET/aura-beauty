@@ -3,27 +3,29 @@
 import React, { useState } from 'react';
 import { StoryblokComponent } from '@storyblok/react';
 
-export default function ProductListingSection({ blok }:any) {
+export default function ProductListingSection({ blok }: any) {
   const [filterOpen, setFilterOpen] = useState(false);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-12">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold">{blok.title || 'Products'}</h1>
+    <section className='max-w-7xl mx-auto px-4 py-12'>
+      <div className='flex justify-between items-center mb-8'>
+        <h1 className='text-4xl font-bold'>{blok.title || 'Products'}</h1>
         <button
           onClick={() => setFilterOpen(!filterOpen)}
-          className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50"
+          className='border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50'
         >
           {filterOpen ? 'Close Filter' : 'Filter'}
         </button>
       </div>
 
-      <div className="flex gap-8">
+      <div className='flex gap-8'>
         {/* Filters Section */}
         {filterOpen && blok.filters && (
-          <aside className="w-64 shrink-0 border border-gray-200 p-6 rounded-lg h-fit bg-white">
-            {blok.filters.map((filterBlok:any) => {
-              return <StoryblokComponent blok={filterBlok} key={filterBlok._uid} />;
+          <aside className='w-64 shrink-0 border border-gray-200 p-6 rounded-lg h-fit bg-white'>
+            {blok.filters.map((filterBlok: any) => {
+              return (
+                <StoryblokComponent blok={filterBlok} key={filterBlok._uid} />
+              );
             })}
           </aside>
         )}
@@ -36,8 +38,10 @@ export default function ProductListingSection({ blok }:any) {
               : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
           } flex-1`}
         >
-          {blok.products?.map((productBlok:any) => {
-            return <StoryblokComponent blok={productBlok} key={productBlok._uid} />;
+          {blok.products?.map((productBlok: any) => {
+            return (
+              <StoryblokComponent blok={productBlok} key={productBlok._uid} />
+            );
           })}
         </div>
       </div>
