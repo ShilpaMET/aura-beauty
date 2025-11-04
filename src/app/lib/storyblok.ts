@@ -5,6 +5,7 @@ import Hero from '@/app/components/Hero';
 import HeroSlider from '@/app/components/HeroSlider';
 import AboutUs from '../components/AboutUs';
 import Feature from '../components/Feature';
+import Navbar from "../components/Navbar";
 
 let initialized = false;
 
@@ -14,6 +15,7 @@ export const getStoryblok = () => {
       accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
       use: [apiPlugin],
       components: {
+        navbar : Navbar,
         page: Page,
         hero: Hero,
         hero_slider: HeroSlider,
@@ -22,13 +24,7 @@ export const getStoryblok = () => {
       },
     });
     initialized = true;
-    console.log('✅ Storyblok initialized with components:', [
-      'page',
-      'hero',
-      'hero_slider',
-      'about',
-      'feature',
-    ]);
+
   }
   return getStoryblokApi();
 };
