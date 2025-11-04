@@ -3,18 +3,20 @@ import { StoryblokComponent } from "@storyblok/react";
 import { getStoryblok } from "./lib/storyblok";
 import { StoryblokProvider } from "./components/StoryblokProvider";
 import Navbar from "./components/Navbar";
+import { draftMode } from "next/headers";
 
 export default async function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
   const storyblokApi = getStoryblok();
+  const { isEnabled } = await draftMode();
 
   const navbarRes = await storyblokApi.get("cdn/stories/navbar", {
-    version: process.env.NODE_ENV === "development" ? "draft" : "published",
+    version: process.env.NODE_ENV === "development" || isEnabled ? "draft" : "published",
   });
   const navbarBlok = navbarRes?.data?.story?.content;
   const footerRes = await storyblokApi.get("cdn/stories/footer", {
-    version: process.env.NODE_ENV === "development" ? "draft" : "published",
+    version: process.env.NODE_ENV === "development" || isEnabled ? "draft" : "published",
   });
   const footerBlok = footerRes?.data?.story?.content;
 

@@ -1,6 +1,7 @@
 // src/app/serums/[slug]/page.tsx
 import { StoryblokProvider } from '@/app/components/StoryblokProvider';
 import { getStoryblok } from '@/app/lib/storyblok';
+import { draftMode } from 'next/headers';
 
 export default async function SerumDetailPage({
   params,
@@ -9,10 +10,11 @@ export default async function SerumDetailPage({
 }) {
   const { slug } = await params;
   const storyblokApi = getStoryblok();
-
+  const { isEnabled } = await draftMode();
+  
   try {
     const { data } = await storyblokApi.get(`cdn/stories/serums/${slug}`, {
-      version: process.env.NODE_ENV === "development" ? "draft" : "published",
+      version: process.env.NODE_ENV === "development" || isEnabled ? "draft" : "published",
     });
 
     const body = data.story.content.body || [];
