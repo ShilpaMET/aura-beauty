@@ -40,7 +40,7 @@ const Hero = ({ blok }: any) => {
               src={img.filename}
               alt={blok.headline || "Slide Image"}
               fill
-              className="object-cover"
+              className="fit-object"
               priority={index === 0}
             />
           </div>
