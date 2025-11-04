@@ -2,20 +2,21 @@ import { storyblokEditable, SbBlokData } from '@storyblok/react';
 
 interface AboutUsProps {
   blok: SbBlokData & {
-    title?: string;
-    subtitle?: string;
+    heading?: string;
+    preHeading?: string;
     description?: string;
     image?: {
       filename: string;
       alt?: string;
     };
-    button_text?: string;
+    button_label?: string;
     button_link?: string;
   };
 }
 
-// ✅ Server Component
 export default function AboutUs({ blok }: AboutUsProps) {
+  console.log(blok);
+  
   return (
     <section
       {...storyblokEditable(blok)}
@@ -34,14 +35,14 @@ export default function AboutUs({ blok }: AboutUsProps) {
 
       {/* Text Section */}
       <div className='text-left space-y-5'>
-        {blok.subtitle && (
+        {blok.preHeading && (
           <p className='text-sm uppercase tracking-wide text-gray-500'>
-            {blok.subtitle}
+            {blok.preHeading}
           </p>
         )}
-        {blok.title && (
+        {blok.heading && (
           <h2 className='text-3xl md:text-4xl font-semibold text-gray-900'>
-            {blok.title}
+            {blok.heading}
           </h2>
         )}
         {blok.description && (
@@ -51,12 +52,12 @@ export default function AboutUs({ blok }: AboutUsProps) {
         )}
 
         {/* CTA Button */}
-        {blok.button_text && (
+        {blok.button_label && (
           <a
-            href={blok.button_link || '#'}
+            href={blok.button_link?.cached_url || '#'}
             className='inline-flex items-center gap-2 bg-blue-900 text-white px-5 py-2 rounded-full hover:bg-blue-800 transition-all duration-200'
           >
-            {blok.button_text}
+            {blok.button_label}
             <span aria-hidden='true'>↗</span>
           </a>
         )}

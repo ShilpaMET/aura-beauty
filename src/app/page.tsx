@@ -15,9 +15,9 @@ export default async function HomePage() {
   return (
     <StoryblokProvider>
       <main>
-        {body.map((blok: any) => {
-          return <StoryblokComponent blok={blok} key={blok._uid} />;
-        })}
+        {body.map((blok: any) =>  (
+          <StoryblokComponent blok={blok} key={blok._uid} />
+        ))}
       </main>
     </StoryblokProvider>
   );
