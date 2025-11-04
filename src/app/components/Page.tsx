@@ -1,5 +1,6 @@
-"use client";
-import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
+// aura-beauty/src/app/components/Page.tsx
+'use client';
+import { storyblokEditable, StoryblokComponent } from '@storyblok/react';
 
 const Page = ({ blok }) => (
   <div {...storyblokEditable(blok)}>

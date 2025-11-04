@@ -1,18 +1,19 @@
-import { StoryblokStory } from "@storyblok/react/rsc";
-import { getStoryblok } from "@/app/lib/storyblok";
-import {StoryblokProvider} from '@/app/components/StoryblokProvider'
-import { StoryblokComponent } from "@storyblok/react";
+// aura-beauty/src/app/hero/page.tsx
+import { StoryblokStory } from '@storyblok/react/rsc';
+import { getStoryblok } from '@/app/lib/storyblok';
+import { StoryblokProvider } from '@/app/components/StoryblokProvider';
+import { StoryblokComponent } from '@storyblok/react';
 export default async function Hero() {
   const storyblokApi = getStoryblok();
-  const { data } = await storyblokApi.get("cdn/stories/home", {
-    version: "draft", // use 'published' in production
+  const { data } = await storyblokApi.get('cdn/stories/home', {
+    version: 'draft', // use 'published' in production
   });
-   const heroBlok = data.story.content.body?.find(
-    (blok: any) => blok.component === "hero"
+  const heroBlok = data.story.content.body?.find(
+    (blok: any) => blok.component === 'hero',
   );
 
   return (
-   <StoryblokProvider>
+    <StoryblokProvider>
       {heroBlok ? (
         <StoryblokComponent blok={heroBlok} />
       ) : (

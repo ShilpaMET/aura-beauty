@@ -1,5 +1,6 @@
-import "./globals.css";
-import "@/app/lib/storyblok";
+// src/app/layout.tsx
+import './globals.css';
+import './lib/storyblok';
 
 export default function RootLayout({
   children,
@@ -7,10 +8,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-gray-50 text-gray-900">
-        {children}
-      </body>
+    <html lang='en'>
+      <body className='bg-gray-50 text-gray-900'>{children}</body>
     </html>
   );
 }
