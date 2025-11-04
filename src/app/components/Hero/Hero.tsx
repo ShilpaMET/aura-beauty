@@ -31,7 +31,7 @@ const Hero = ({ blok }: any) => {
         className="whitespace-nowrap transition-all duration-500 ease-out h-full"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
-        {images.map((img, index) => (
+        {images.map((img:any, index:any) => (
           <div
             key={index}
             className="inline-block w-full h-full relative"
@@ -98,7 +98,7 @@ const Hero = ({ blok }: any) => {
 
       {/* DOT INDICATORS */}
       <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2">
-        {images.map((_, i) => (
+        {images.map((_:any, i:any) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}

@@ -38,7 +38,7 @@ export default function Navbar({ blok }: { blok: any }) {
 
       <div className="flex space-x-8 text-sm font-medium">
         {menuItems.length > 0 ? (
-          menuItems.map((item, i) => (
+          menuItems.map((item:any, i:any) => (
             <Link key={i} href={item.link}>
               {item.name}
             </Link>

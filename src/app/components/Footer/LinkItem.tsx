@@ -2,7 +2,7 @@
 
 import { storyblokEditable } from "@storyblok/react";
 
-const LinkItem = ({ blok }) => (
+const LinkItem = ({ blok }:any) => (
   <li {...storyblokEditable(blok)}>
     <a href={blok.link?.url} className="hover:underline">
       {blok.label}

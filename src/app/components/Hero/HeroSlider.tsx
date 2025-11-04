@@ -15,7 +15,7 @@ const HeroSlider = ({ images = [] }) => {
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden">
-      {images.map((img, i) => (
+      {images.map((img:any, i:any) => (
         <div
           key={i}
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${

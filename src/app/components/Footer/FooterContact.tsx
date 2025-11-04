@@ -2,7 +2,7 @@
 
 import { storyblokEditable } from "@storyblok/react";
 
-const FooterContact = ({ blok }) => (
+const FooterContact = ({ blok }:any) => (
   <div {...storyblokEditable(blok)}>
     <h4 className="font-semibold mb-4 text-lg">{blok.title}</h4>
 

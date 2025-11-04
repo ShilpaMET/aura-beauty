@@ -4,7 +4,8 @@ import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
 import { FaFacebookF, FaInstagram, FaPinterestP, FaXTwitter } from "react-icons/fa6";
 
 
-const Footer = ({ blok }) => {
+const Footer = ({ blok }: { blok: any }) => {
+
   return (
     <footer
       className="bg-[#0b1631] text-white py-12 text-sm"
@@ -12,7 +13,7 @@ const Footer = ({ blok }) => {
     >
       {/* Columns */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 px-6">
-        {blok.columns?.map((nestedBlok) => (
+        {blok.columns?.map((nestedBlok:any) => (
           <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
         ))}
       </div>
@@ -23,7 +24,7 @@ const Footer = ({ blok }) => {
 
         {/* Social icons */}
         <div className="flex gap-3 mt-4 md:mt-0">
-          {blok.social_links?.map((link, index) => (
+          {blok.social_links?.map((link:any, index:any) => (
             <a
               key={index}
               href={link}

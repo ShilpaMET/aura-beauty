@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { StoryblokComponent } from '@storyblok/react';
 
-export default function ProductListingSection({ blok }) {
+export default function ProductListingSection({ blok }:any) {
   const [filterOpen, setFilterOpen] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ export default function ProductListingSection({ blok }) {
         {/* Filters Section */}
         {filterOpen && blok.filters && (
           <aside className="w-64 shrink-0 border border-gray-200 p-6 rounded-lg h-fit bg-white">
-            {blok.filters.map((filterBlok) => {
+            {blok.filters.map((filterBlok:any) => {
               return <StoryblokComponent blok={filterBlok} key={filterBlok._uid} />;
             })}
           </aside>
@@ -36,7 +36,7 @@ export default function ProductListingSection({ blok }) {
               : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
           } flex-1`}
         >
-          {blok.products?.map((productBlok) => {
+          {blok.products?.map((productBlok:any) => {
             return <StoryblokComponent blok={productBlok} key={productBlok._uid} />;
           })}
         </div>

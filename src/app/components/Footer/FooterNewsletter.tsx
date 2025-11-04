@@ -2,7 +2,7 @@
 
 import { storyblokEditable } from "@storyblok/react";
 
-const FooterNewsletter = ({ blok }) => (
+const FooterNewsletter = ({ blok }:any) => (
   <div {...storyblokEditable(blok)}>
     <h4 className="font-semibold mb-4 text-lg">{blok.title}</h4>
     <p className="text-gray-300 mb-4">{blok.description}</p>
@@ -23,7 +23,7 @@ const FooterNewsletter = ({ blok }) => (
 
     <p className="mb-2 font-semibold">Payment Available:</p>
     <div className="flex flex-wrap gap-2">
-      {blok.payment_logos?.map((img, index) => (
+      {blok.payment_logos?.map((img:any, index:any) => (
         <img
           key={img.id || index}
           src={img.filename}
