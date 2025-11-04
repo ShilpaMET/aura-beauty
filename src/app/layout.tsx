@@ -1,17 +1,18 @@
 // src/app/layout.tsx
-import './components/StoryblokProvider'; 
+import './components/StoryblokProvider';
 import './globals.css';
 import './lib/storyblok';
 
 import { StoryblokComponent } from "@storyblok/react";
 import { getStoryblok } from "./lib/storyblok";
+import { StoryblokProvider } from './components/StoryblokProvider';
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-    const storyblokApi = getStoryblok();
+  const storyblokApi = getStoryblok();
 
   // Fetch your global footer
   const { data } = await storyblokApi.get("cdn/stories/footer", {
@@ -23,12 +24,14 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className='bg-gray-50 text-gray-900'>
-        {children}
-        {/* {footerContent && <StoryblokComponent blok={footerContent} />} */}
-        {footerContent?.body?.[0] && (
-  <StoryblokComponent blok={footerContent.body[0]} />
-)}
-        </body>
+        <StoryblokProvider>
+
+          {children}
+          {footerContent?.body?.[0] && (
+            <StoryblokComponent blok={footerContent.body[0]} />
+          )}
+        </StoryblokProvider>
+      </body>
     </html>
   );
 }
