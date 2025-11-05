@@ -32,7 +32,7 @@ export default function Feature({ blok }: any) {
         {blok.product_items?.map((product: any) => (
           <div
             key={product._uid}
-            className='relative rounded-2xl transition-all duration-300'
+            className='relative rounded-2xl transition-all duration-300 flex flex-col'
           >
             {/* Heart icon */}
             <button className='absolute top-3 right-3 bg-white/70 rounded-full p-1.5 hover:bg-white transition z-10'>
@@ -40,20 +40,20 @@ export default function Feature({ blok }: any) {
             </button>
 
             {/* Image container */}
-            <div className='bg-[#e9e9ec] rounded-2xl shadow-md hover:shadow-md transition flex items-center justify-center overflow-hidden'>
+            <div className='bg-[#e9e9ec] rounded-2xl shadow-md hover:shadow-md transition flex items-center justify-center overflow-hidden h-[320px]'>
               {product.image?.filename && (
                 <Image
                   src={product.image.filename}
                   alt={product.name}
                   width={300}
                   height={300}
-                  className='object-cover transition-transform duration-300 scale-105 hover:scale-105'
+                  className='object-cover w-full h-full'
                 />
               )}
             </div>
 
             {/* Product details */}
-            <div className='text-center mt-3'>
+            <div className='text-center mt-3 flex-grow'>
               <h3 className='font-medium text-gray-800'>{product.name}</h3>
               <div className='flex justify-center gap-2 mt-1'>
                 <span className='text-gray-400 line-through text-sm'>
