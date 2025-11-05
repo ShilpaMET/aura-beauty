@@ -27,21 +27,13 @@ const OurTeam = ({ blok }: any) => {
         <h2 className="text-2xl font-semibold text-gray-800">{blok.heading}</h2>
       </div>
 
-      <div className="relative max-w-6xl mx-auto flex items-center justify-center">
-        {/* Left Arrow */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-[-60px] md:left-[-80px] text-gray-800 hover:text-black transition"
-        >
-          <FaArrowLeft size={28} strokeWidth={2} />
-        </button>
-
+      <div className="relative max-w-6xl mx-auto">
         {/* Team Cards */}
         <div className="flex gap-6 overflow-hidden justify-center w-full">
-          {people.slice(index, index + 4).map((person: any) => (
+          {people.slice(index, index + 4).map((person: any, idx: number) => (
             <div
               key={person._uid}
-              className="flex flex-col items-center bg-white border border-gray-200 p-4 w-[220px] md:w-[250px] shadow-sm"
+              className="relative flex flex-col items-center bg-white border border-gray-200 p-4 w-[220px] md:w-[250px] shadow-sm"
             >
               {person.image?.filename && (
                 <div className="relative w-[200px] h-[200px] mb-4 overflow-hidden">
@@ -49,7 +41,7 @@ const OurTeam = ({ blok }: any) => {
                     src={person.image.filename}
                     alt={person.name}
                     fill
-                    className="object-contain"
+                    className="object-cover rounded-md"
                   />
                 </div>
               )}
@@ -59,12 +51,20 @@ const OurTeam = ({ blok }: any) => {
           ))}
         </div>
 
-        {/* Right Arrow */}
+        {/* Left Arrow - aligned to leftmost image */}
+        <button
+          onClick={prevSlide}
+          className="absolute top-1/2 -translate-y-1/2 left-[2%] md:left-[3%] bg-white rounded-full shadow-md p-2 hover:bg-gray-100 transition z-10"
+        >
+          <FaArrowLeft size={22} className="text-gray-800" />
+        </button>
+
+        {/* Right Arrow - aligned to rightmost image */}
         <button
           onClick={nextSlide}
-          className="absolute right-[-60px] md:right-[-80px] text-gray-800 hover:text-black transition"
+          className="absolute top-1/2 -translate-y-1/2 right-[2%] md:right-[3%] bg-white rounded-full shadow-md p-2 hover:bg-gray-100 transition z-10"
         >
-          <FaArrowRight size={28} strokeWidth={2} />
+          <FaArrowRight size={22} className="text-gray-800" />
         </button>
       </div>
     </section>

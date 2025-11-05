@@ -24,7 +24,7 @@ const Hero = ({ blok }: any) => {
   return (
     <section
       {...storyblokEditable(blok)}
-      className='relative w-full h-[85vh] overflow-hidden pt-[84]'
+      className='relative w-full h-[85vh] overflow-hidden'
     >
       {/* Slider Images */}
       <div
