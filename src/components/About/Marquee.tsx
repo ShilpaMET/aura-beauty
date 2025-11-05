@@ -8,12 +8,12 @@ const Marquee = ({ blok }: any) => {
 
   return (
     <section
-      className="bg-[#112D4E] text-white py-3 overflow-hidden"
+      className='bg-[#112D4E] text-white py-3 overflow-hidden'
       {...storyblokEditable(blok)}
     >
-      <div className="flex justify-center items-center gap-12 whitespace-nowrap animate-none">
+      <div className='flex justify-around items-center whitespace-nowrap'>
         {items?.map((item: string, index: number) => (
-          <span key={index} className="text-sm md:text-base font-medium">
+          <span key={index} className='text-sm md:text-base font-medium'>
             {item}
           </span>
         ))}

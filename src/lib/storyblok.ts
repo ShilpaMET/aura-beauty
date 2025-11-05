@@ -16,31 +16,30 @@ import AboutHero from '@/components/About/AboutHero';
 import Marquee from '@/components/About/Marquee';
 import OurTeam from '@/components/About/OurTeam';
 
-
 export const getStoryblokApi = storyblokInit({
-	accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
-      use: [apiPlugin],
-      components: {
-        navbar: Navbar,
-        page: Page,
-        hero: Hero,
-        hero_slider: HeroSlider,
-        about: AboutUs,
-        feature: Feature,
-        faq: Faq,
-        footer: Footer,
-        footer_column: FooterColumn,
-        footer_contact: FooterContact,
-        footer_newsletter: FooterNewsletter,
-        link_item: LinkItem,
-        about_hero : AboutHero,
-        marquee : Marquee,
-        our_team: OurTeam
-      },
-	// apiOptions: {
-	// 	region: 'eu',
-	// 	endpoint: process.env.STORYBLOK_API_BASE_URL
-	// 		? `${new URL(process.env.STORYBLOK_API_BASE_URL).origin}/v2`
-	// 		: undefined,
-	// },
+  accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
+  use: [apiPlugin],
+  components: {
+    navbar: Navbar,
+    page: Page,
+    hero: Hero,
+    hero_slider: HeroSlider,
+    about: AboutUs,
+    feature: Feature,
+    faq: Faq,
+    footer: Footer,
+    footer_column: FooterColumn,
+    footer_contact: FooterContact,
+    footer_newsletter: FooterNewsletter,
+    link_item: LinkItem,
+    about_hero: AboutHero,
+    marquee: Marquee,
+    our_team: OurTeam,
+  },
+  // apiOptions: {
+  // 	region: 'eu',
+  // 	endpoint: process.env.STORYBLOK_API_BASE_URL
+  // 		? `${new URL(process.env.STORYBLOK_API_BASE_URL).origin}/v2`
+  // 		: undefined,
+  // },
 });

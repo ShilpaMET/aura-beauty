@@ -43,6 +43,6 @@ export const StoryblokProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
- 	getStoryblokApi();
-	return children;
+  getStoryblokApi();
+  return children;
 };

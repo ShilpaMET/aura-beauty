@@ -13,7 +13,7 @@ const FaqContact = ({ blok }: any) => {
       <h3 className='text-lg font-semibold mb-2'>{blok.name}</h3>
       <p className='text-gray-600 mb-4'>{blok.description}</p>
       <Link
-        href={blok.button_link?.cached_url === "home" ? '/' : '#'}
+        href={blok.button_link?.cached_url === 'home' ? '/' : '#'}
         className='inline-block bg-blue-900 text-white py-2 px-4 rounded-md'
       >
         {blok.button_label || 'Contact Us'}

@@ -5,7 +5,7 @@ import { storyblokEditable } from '@storyblok/react';
 import Link from 'next/link';
 
 export default function ProductListingSection({ blok }: any) {
-  const products = blok.products || []; 
+  const products = blok.products || [];
 
   return (
     <section {...storyblokEditable(blok)} className='p-10'>

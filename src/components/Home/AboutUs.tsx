@@ -15,8 +15,6 @@ interface AboutUsProps {
 }
 
 export default function AboutUs({ blok }: AboutUsProps) {
-
-  
   return (
     <section
       {...storyblokEditable(blok)}
@@ -54,7 +52,7 @@ export default function AboutUs({ blok }: AboutUsProps) {
         {/* CTA Button */}
         {blok.button_label && (
           <a
-             href={blok.button_link?.cached_url === "home" ? '/' : '#'}
+            href={blok.button_link?.cached_url === 'home' ? '/' : '#'}
             className='inline-flex items-center gap-2 bg-blue-900 text-white px-5 py-2 rounded-full hover:bg-blue-800 transition-all duration-200'
           >
             {blok.button_label}
