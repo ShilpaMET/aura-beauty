@@ -13,18 +13,27 @@ interface AboutUsProps {
     };
     button_label?: string;
     button_link?: any;
+    image_left?: boolean;
   };
 }
 
-export default function AboutUs({ blok }: AboutUsProps) {
+export default function AboutUs({ blok }: AboutUsProps) {  
+  const isImageLeft = blok.image_left === true;
+  
   return (
     <section
       {...storyblokEditable(blok)}
       className='max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 items-center gap-12'
     >
-      {/* Image Section */}
+      {/* 🖼️ Image Section */}
       {blok.image?.filename && (
-        <div className='flex justify-center md:justify-end'>
+        <div
+          className={`flex ${
+            isImageLeft
+              ? 'md:order-1 md:justify-start' // Image on left
+              : 'md:order-2 md:justify-end'   // Image on right
+          }`}
+        >
           <img
             src={blok.image.filename}
             alt={blok.image.alt || blok.title || 'About us image'}
@@ -33,8 +42,12 @@ export default function AboutUs({ blok }: AboutUsProps) {
         </div>
       )}
 
-      {/* Text Section */}
-      <div className='text-left space-y-5'>
+      {/* 📝 Text Section */}
+      <div
+        className={`text-left space-y-5 ${
+          isImageLeft ? 'md:order-2' : 'md:order-1'
+        }`}
+      >
         {blok.preHeading && (
           <p className='text-sm uppercase tracking-wide text-gray-500'>
             {blok.preHeading}
@@ -51,19 +64,15 @@ export default function AboutUs({ blok }: AboutUsProps) {
           </p>
         )}
 
-        {/* CTA Button */}
-
         {blok.button_label && (
           <Link
-            href={ `/${blok.button_link?.cached_url || '/' }`
-            }
+            href={`/${blok.button_link?.cached_url || '/'}`}
             className='inline-flex items-center gap-2 bg-blue-900 text-white px-5 py-2 rounded-full hover:bg-blue-800 transition-all duration-200'
           >
             {blok.button_label}
             <span aria-hidden='true'>↗</span>
           </Link>
         )}
-
       </div>
     </section>
   );
