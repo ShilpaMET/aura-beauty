@@ -1,14 +1,14 @@
 import "./globals.css";
 import { StoryblokComponent } from "@storyblok/react";
-import { getStoryblok } from "./lib/storyblok";
-import { StoryblokProvider } from "./components/StoryblokProvider";
-import Navbar from "./components/Navbar";
+import { getStoryblokApi } from "@/lib/storyblok";
+import { StoryblokProvider } from "../components/StoryblokProvider";
+import Navbar from "../components/layout/Navbar/Navbar";
 import { draftMode } from "next/headers";
 
 export default async function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
-  const storyblokApi = getStoryblok();
+  const storyblokApi = getStoryblokApi();
   const { isEnabled } = await draftMode();
 
   const navbarRes = await storyblokApi.get("cdn/stories/navbar", {
