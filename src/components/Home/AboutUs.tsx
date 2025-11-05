@@ -1,4 +1,6 @@
 import { storyblokEditable, SbBlokData } from '@storyblok/react';
+import Link from "next/link";
+
 
 interface AboutUsProps {
   blok: SbBlokData & {
@@ -50,15 +52,18 @@ export default function AboutUs({ blok }: AboutUsProps) {
         )}
 
         {/* CTA Button */}
+
         {blok.button_label && (
-          <a
-            href={blok.button_link?.cached_url === 'home' ? '/' : '#'}
+          <Link
+            href={ `/${blok.button_link?.cached_url || '/' }`
+            }
             className='inline-flex items-center gap-2 bg-blue-900 text-white px-5 py-2 rounded-full hover:bg-blue-800 transition-all duration-200'
           >
             {blok.button_label}
             <span aria-hidden='true'>↗</span>
-          </a>
+          </Link>
         )}
+
       </div>
     </section>
   );
