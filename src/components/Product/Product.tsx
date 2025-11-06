@@ -2,21 +2,31 @@
 'use client';
 import { storyblokEditable } from '@storyblok/react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { FaLeftLong } from 'react-icons/fa6';
 
 export default function Product({ blok }: any) {
   const [showFullDesc, setShowFullDesc] = useState(false);
+  const router = useRouter();
 
   const toggleDesc = () => setShowFullDesc(!showFullDesc);
 
   return (
     <div {...storyblokEditable(blok)} className='max-w-6xl mx-auto px-4 py-12'>
+      <button
+        onClick={() => router.push('/products')}
+        className='mb-8 text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2'
+      >
+        <FaLeftLong /> Back
+      </button>
+
       <div className='flex flex-col md:flex-row gap-10 md:gap-16 items-start md:items-center'>
         <div className='md:w-1/2 flex justify-center'>
           <div className='w-full max-w-md rounded-lg overflow-hidden shadow-lg'>
             <img
               src={blok.image?.filename}
               alt={blok.name}
-              className='w-full h-auto object-cover transition-transform duration-300 hover:scale-105'
+              className='w-full rounded-2xl shadow-md h-auto object-cover transition-transform duration-300 hover:scale-105'
             />
           </div>
         </div>
@@ -28,7 +38,8 @@ export default function Product({ blok }: any) {
             </h1>
 
             <p
-              className={`text-gray-700 leading-relaxed ${!showFullDesc ? 'line-clamp-6' : ''}`}
+              className={`text-gray-700 leading-relaxed ${!showFullDesc ? 'line-clamp-6' : ''
+                }`}
             >
               {blok.description}
             </p>
@@ -60,9 +71,8 @@ export default function Product({ blok }: any) {
             </div>
 
             <p
-              className={`font-medium mt-2 ${
-                blok.availability ? 'text-green-600' : 'text-red-600'
-              }`}
+              className={`font-medium mt-2 ${blok.availability ? 'text-green-600' : 'text-red-600'
+                }`}
             >
               {blok.availability ? 'In Stock' : 'Out of Stock'}
             </p>
