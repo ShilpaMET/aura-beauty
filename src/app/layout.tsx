@@ -14,15 +14,14 @@ export default async function RootLayout({
   const storyblokApi = getStoryblokApi();
   const { isEnabled } = await draftMode();
 
-   const layoutRes = await storyblokApi.get('cdn/stories/layout', {
+  const layoutRes = await storyblokApi.get('cdn/stories/layout', {
     version:
       process.env.NODE_ENV === 'development' || isEnabled
         ? 'draft'
         : 'published',
   });
   const layoutBlok = layoutRes?.data?.story?.content;
-  console.log(layoutBlok);
-  
+
   return (
     <html lang='en'>
       <body className='bg-gray-50 text-gray-900'>

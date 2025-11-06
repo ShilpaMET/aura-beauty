@@ -25,7 +25,6 @@ export default function Feature({ blok }: any) {
       setProducts(data.stories);
     };
 
-
     fetchProducts();
   }, [blok.product_ref]);
   return (
@@ -37,9 +36,7 @@ export default function Feature({ blok }: any) {
           <h2 className='text-2xl md:text-3xl font-bold text-[#1a1f3c] mb-2 md:mb-0'>
             {blok.heading}
           </h2>
-          <p className='text-gray-500'>
-            {blok.description}
-          </p>
+          <p className='text-gray-500'>{blok.description}</p>
         </div>
 
         {/* Button Section */}
@@ -53,7 +50,6 @@ export default function Feature({ blok }: any) {
           </a>
         )}
       </div>
-
 
       {/* Product grid */}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto'>
@@ -89,7 +85,9 @@ export default function Feature({ blok }: any) {
 
             {/* Product details */}
             <div className='text-center mt-3 flex-grow'>
-              <h3 className='font-medium text-gray-800'>{product.content.name}</h3>
+              <h3 className='font-medium text-gray-800'>
+                {product.content.name}
+              </h3>
               <div className='flex justify-center gap-2 mt-1'>
                 <span className='text-gray-400 line-through text-sm'>
                   {Number(product.content.price).toLocaleString('en-IN', {
@@ -100,13 +98,15 @@ export default function Feature({ blok }: any) {
                 </span>
 
                 <span className='text-gray-900 font-semibold'>
-                  {Number(product.content.discount_price).toLocaleString('en-IN', {
-                    style: 'currency',
-                    currency: 'INR',
-                    minimumFractionDigits: 0,
-                  })}
+                  {Number(product.content.discount_price).toLocaleString(
+                    'en-IN',
+                    {
+                      style: 'currency',
+                      currency: 'INR',
+                      minimumFractionDigits: 0,
+                    },
+                  )}
                 </span>
-
               </div>
             </div>
           </div>

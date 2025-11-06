@@ -1,6 +1,5 @@
 import { storyblokEditable, SbBlokData } from '@storyblok/react';
-import Link from "next/link";
-
+import Link from 'next/link';
 
 interface AboutUsProps {
   blok: SbBlokData & {
@@ -17,9 +16,9 @@ interface AboutUsProps {
   };
 }
 
-export default function AboutUs({ blok }: AboutUsProps) {  
+export default function AboutUs({ blok }: AboutUsProps) {
   const isImageLeft = blok.image_left === true;
-  
+
   return (
     <section
       {...storyblokEditable(blok)}
@@ -31,7 +30,7 @@ export default function AboutUs({ blok }: AboutUsProps) {
           className={`flex ${
             isImageLeft
               ? 'md:order-1 md:justify-start' // Image on left
-              : 'md:order-2 md:justify-end'   // Image on right
+              : 'md:order-2 md:justify-end' // Image on right
           }`}
         >
           <img
