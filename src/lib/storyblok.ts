@@ -15,6 +15,9 @@ import FooterNewsletter from '../components/layout/Footer/FooterNewsletter';
 import AboutHero from '@/components/About/AboutHero';
 import Marquee from '@/components/About/Marquee';
 import OurTeam from '@/components/About/OurTeam';
+import ProductList from '@/components/Product/ProductList';
+import Product from '@/components/Product/Product';
+import Filters from '@/components/Product/Filters';
 
 export const getStoryblokApi = storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
@@ -35,6 +38,11 @@ export const getStoryblokApi = storyblokInit({
     about_hero: AboutHero,
     marquee: Marquee,
     our_team: OurTeam,
+    product_list:ProductList,
+    products: Product,
+    filter_group:Filters
+
+
   },
   // apiOptions: {
   // 	region: 'eu',

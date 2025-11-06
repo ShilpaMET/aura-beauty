@@ -1,7 +1,7 @@
-// aura-beauty/src/app/components/Product.tsx
+// aura-beauty/src/app/components/Product/Product.tsx
 import { storyblokEditable } from '@storyblok/react';
 
-export default function Product({ blok }: any) {
+export default function Product({ blok }: any) {  
   return (
     <div {...storyblokEditable(blok)} className='max-w-md mx-auto'>
       <img
