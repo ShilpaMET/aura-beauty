@@ -15,19 +15,7 @@ import {
 export default function Navbar({ blok }: { blok: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const logo = blok?.logo?.filename || '';
-  const tableData = blok?.menu_items?.[0]?.items;
-
-  const menuItems =
-    tableData?.fieldtype === 'table' && Array.isArray(tableData?.tbody)
-      ? tableData.tbody
-          .map((row: any) => {
-            const cells = row.body || [];
-            const name = cells[0]?.value?.trim() || '';
-            const link = cells[1]?.value?.trim() || '#';
-            return name ? { name, link } : null;
-          })
-          .filter(Boolean)
-      : [];
+  const menuItems = blok?.menu_items;
 
   return (
     <nav
@@ -40,10 +28,10 @@ export default function Navbar({ blok }: { blok: any }) {
           {menuItems.map((item: any, i: number) => (
             <Link
               key={i}
-              href={item.link}
+              href={item.links.cached_url}
               className='hover:text-[#7b6f6f] transition-colors'
             >
-              {item.name}
+              {item.label}
             </Link>
           ))}
         </div>
@@ -63,7 +51,7 @@ export default function Navbar({ blok }: { blok: any }) {
 
         {/* Right - Icons */}
         {blok.show_icons && (
-          <div className='flex space-x-5 text-[18px] items-center'>
+          <div className='hidden md:block flex space-x-5 text-[18px] items-center'>
             <button aria-label='Search'>
               <FaSearch className='hover:text-[#7b6f6f] transition' />
             </button>
@@ -92,11 +80,11 @@ export default function Navbar({ blok }: { blok: any }) {
             {menuItems.map((item: any, i: number) => (
               <Link
                 key={i}
-                href={item.link}
+                href={item.links.cached_url}
                 className='text-sm font-medium hover:text-[#7b6f6f] transition-colors'
                 onClick={() => setIsOpen(false)}
               >
-                {item.name}
+                {item.label}
               </Link>
             ))}
             {blok.show_icons && (

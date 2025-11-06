@@ -73,7 +73,7 @@ const ProductCard = ({ product }: any) => {
             )}
           </div>
 
-          {size && <p className='text-gray-500 text-sm mb-1'>{size}</p>}
+          {size && <p className='text-gray-500 text-sm mb-1'>{Array.isArray(size) ? size.join(' ') : size}</p>}
         </div>
       </div>
     </Link>
