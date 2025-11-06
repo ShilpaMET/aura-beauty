@@ -1,10 +1,20 @@
-// src/app/components/About/AboutHero.tsx
 'use client';
 
 import Image from 'next/image';
 import { storyblokEditable } from '@storyblok/react/rsc';
+import { FaArrowDown } from 'react-icons/fa';
+import { useCallback } from 'react';
 
 const AboutHero = ({ blok }: any) => {
+  // ✅ useCallback avoids re-creating function on re-renders
+  const handleScroll = useCallback(() => {
+    if (typeof window === 'undefined') return; // SSR-safe
+    const nextSection = document.querySelector('section:nth-of-type(2)');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   return (
     <section
       className='relative w-full h-[80vh] flex items-center justify-center text-center text-white overflow-hidden'
@@ -16,7 +26,7 @@ const AboutHero = ({ blok }: any) => {
           alt={blok.background_image.alt || 'About Hero Background'}
           fill
           priority
-          className='fit-object'
+          className='object-cover'
         />
       )}
 
@@ -34,6 +44,15 @@ const AboutHero = ({ blok }: any) => {
           </p>
         )}
       </div>
+
+      {/* ✅ Scroll button fixed bottom-left corner */}
+      <button
+        onClick={handleScroll}
+        className='absolute right-10 bottom-10 flex items-center gap-2 text-black bg-white/80 px-4 py-2 rounded-full shadow-md hover:bg-white transition-all duration-300 z-20'
+      >
+        <span className='font-medium'>Scroll</span>
+        <FaArrowDown />
+      </button>
     </section>
   );
 };
