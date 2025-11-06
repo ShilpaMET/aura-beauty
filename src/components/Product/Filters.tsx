@@ -1,7 +1,7 @@
 'use client';
 
 import { storyblokEditable } from '@storyblok/react/rsc';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 interface FilterGroup {
   _uid: string;
@@ -14,11 +14,20 @@ interface FilterGroup {
   switch_default?: boolean;
 }
 
-const Filters = ({ filters }: { filters: FilterGroup[] }) => {
-  const [selectedFilters, setSelectedFilters] = useState<Record<string, any>>({});
+const Filters = ({
+  filters,
+  selectedFilters,
+  onFilterChange,
+}: {
+  filters: FilterGroup[];
+  selectedFilters: Record<string, any>;
+  onFilterChange: (filters: Record<string, any>) => void;
+}) => {    
+  const setSelectedFilters = onFilterChange;
 
+  // --- Handlers ---
   const handleReset = (group: string) => {
-    setSelectedFilters((prev) => {
+    setSelectedFilters((prev: any) => {
       const updated = { ...prev };
       delete updated[group];
       return updated;
@@ -26,14 +35,14 @@ const Filters = ({ filters }: { filters: FilterGroup[] }) => {
   };
 
   const handleRangeChange = (group: string, value: number, min: number, max: number) => {
-    setSelectedFilters((prev) => ({
+    setSelectedFilters((prev: any) => ({
       ...prev,
       [group]: { min, max: value },
     }));
   };
 
   const handleCheckboxToggle = (group: string, option: string) => {
-    setSelectedFilters((prev) => {
+    setSelectedFilters((prev: any) => {
       const current = prev[group] || [];
       const updated = current.includes(option)
         ? current.filter((o: string) => o !== option)
@@ -43,7 +52,7 @@ const Filters = ({ filters }: { filters: FilterGroup[] }) => {
   };
 
   const handleSwitchToggle = (group: string) => {
-    setSelectedFilters((prev) => ({
+    setSelectedFilters((prev: any) => ({
       ...prev,
       [group]: !prev[group],
     }));
@@ -51,8 +60,8 @@ const Filters = ({ filters }: { filters: FilterGroup[] }) => {
 
   return (
     <div
-      {...storyblokEditable(filters)}
-      className="bg-white rounded-xl border border-gray-200 p-6 w-full max-w-xs"
+      {...storyblokEditable({ filters })}
+      className="bg-white rounded-xl border border-gray-200 p-6 w-full"
     >
       <h3 className="text-lg font-semibold text-[#1E2B47] mb-4">Filters</h3>
 
@@ -60,9 +69,7 @@ const Filters = ({ filters }: { filters: FilterGroup[] }) => {
         filters.map((filter) => (
           <div key={filter._uid} className="mb-6 border-b border-gray-100 pb-4">
             <div className="flex justify-between items-center mb-2">
-              <h4 className="text-sm font-semibold text-[#1E2B47]">
-                {filter.group_name}
-              </h4>
+              <h4 className="text-sm font-semibold text-[#1E2B47]">{filter.group_name}</h4>
               <button
                 onClick={() => handleReset(filter.group_name)}
                 className="text-xs text-gray-400 hover:text-[#112D4E]"
@@ -71,7 +78,7 @@ const Filters = ({ filters }: { filters: FilterGroup[] }) => {
               </button>
             </div>
 
-            {/* SWITCH FILTER (Availability) */}
+            {/* SWITCH FILTER */}
             {filter.filter_type === 'switch' && (
               <div className="flex items-center gap-3 mt-3">
                 <div
@@ -91,29 +98,32 @@ const Filters = ({ filters }: { filters: FilterGroup[] }) => {
                   ></div>
                 </div>
                 <span className="text-sm text-gray-600">
-                  {selectedFilters[filter.group_name] ? 'Available' : 'Unavailable'}
+                  Available
                 </span>
               </div>
             )}
 
-            {/* RANGE FILTER (Price) */}
+            {/* RANGE FILTER */}
             {filter.filter_type === 'range' && (
               <div className="flex flex-col gap-3 mt-3">
                 <input
                   type="range"
-                  min={filter.min_price}
-                  max={filter.max_price}
+                  min={filter.min_price ?? 0}
+                  max={filter.max_price ?? 10000}
                   step="100"
                   value={
-                    selectedFilters[filter.group_name]?.max ||
-                    (filter.min_price! + (filter.max_price! - filter.min_price!) / 2)
+                    selectedFilters[filter.group_name]?.max ??
+                    Math.floor(
+                      (filter.min_price ?? 0) +
+                        ((filter.max_price ?? 10000) - (filter.min_price ?? 0)) / 2
+                    )
                   }
                   onChange={(e) =>
                     handleRangeChange(
                       filter.group_name,
                       parseInt(e.target.value),
-                      filter.min_price!,
-                      filter.max_price!
+                      filter.min_price ?? 0,
+                      filter.max_price ?? 10000
                     )
                   }
                   className="w-full accent-[#112D4E]"
@@ -125,18 +135,19 @@ const Filters = ({ filters }: { filters: FilterGroup[] }) => {
                   <span className="text-gray-400">—</span>
                   <div className="bg-gray-50 border rounded-md px-3 py-1">
                     $
-                    {selectedFilters[filter.group_name]?.max ||
+                    {selectedFilters[filter.group_name]?.max ??
                       filter.max_price}
                   </div>
                 </div>
               </div>
             )}
 
-            {/* CHECKBOX FILTERS (Category / Size) */}
+            {/* CHECKBOX FILTERS */}
             {filter.filter_type === 'checkbox' && (
               <div className="mt-3 space-y-2">
                 {filter.checkbox_options?.map((option, i) => {
-                  const isChecked = selectedFilters[filter.group_name]?.includes(option);
+                  const isChecked =
+                    selectedFilters[filter.group_name]?.includes(option);
                   return (
                     <label
                       key={i}
@@ -144,8 +155,10 @@ const Filters = ({ filters }: { filters: FilterGroup[] }) => {
                     >
                       <input
                         type="checkbox"
-                        checked={isChecked}
-                        onChange={() => handleCheckboxToggle(filter.group_name, option)}
+                        checked={!!isChecked}
+                        onChange={() =>
+                          handleCheckboxToggle(filter.group_name, option)
+                        }
                         className="accent-[#112D4E]"
                       />
                       {option}

@@ -14,7 +14,7 @@ const ProductCard = ({ product }: any) => {
             src={image.filename}
             alt={image.alt || name}
             fill
-            className="object-cover rounded-md"
+            className="object-fit rounded-md"
           />
         ) : (
           <div className="bg-gray-100 w-full h-full rounded-md flex items-center justify-center text-gray-400">
