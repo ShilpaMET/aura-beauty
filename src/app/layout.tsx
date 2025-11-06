@@ -4,6 +4,7 @@ import { getStoryblokApi } from '@/lib/storyblok';
 import { StoryblokProvider } from '../components/StoryblokProvider';
 import Navbar from '../components/layout/Navbar/Navbar';
 import { draftMode } from 'next/headers';
+import Footer from '@/components/layout/Footer/Footer';
 
 export default async function RootLayout({
   children,
@@ -13,32 +14,22 @@ export default async function RootLayout({
   const storyblokApi = getStoryblokApi();
   const { isEnabled } = await draftMode();
 
-  const navbarRes = await storyblokApi.get('cdn/stories/navbar', {
+   const layoutRes = await storyblokApi.get('cdn/stories/layout', {
     version:
       process.env.NODE_ENV === 'development' || isEnabled
         ? 'draft'
         : 'published',
   });
-  const navbarBlok = navbarRes?.data?.story?.content;
-  const footerRes = await storyblokApi.get('cdn/stories/footer', {
-    version:
-      process.env.NODE_ENV === 'development' || isEnabled
-        ? 'draft'
-        : 'published',
-  });
-  const footerBlok = footerRes?.data?.story?.content;
-
+  const layoutBlok = layoutRes?.data?.story?.content;
+  console.log(layoutBlok);
+  
   return (
     <html lang='en'>
       <body className='bg-gray-50 text-gray-900'>
         <StoryblokProvider>
-          {navbarBlok?.body?.[0] && <Navbar blok={navbarBlok.body[0]} />}
-
+          {layoutBlok?.body?.[0] && <Navbar blok={layoutBlok.body[0]} />}
           <main className='pt-[65]'>{children}</main>
-
-          {footerBlok?.body?.[0] && (
-            <StoryblokComponent blok={footerBlok.body[0]} />
-          )}
+          {layoutBlok?.body?.[1] && <Footer blok={layoutBlok.body[1]} />}
         </StoryblokProvider>
       </body>
     </html>
