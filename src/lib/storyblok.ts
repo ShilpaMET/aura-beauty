@@ -39,10 +39,8 @@ export const getStoryblokApi = storyblokInit({
     marquee: Marquee,
     our_team: OurTeam,
     product_list:ProductList,
-    products: Product,
+    product: Product,
     filter_group:Filters
-
-
   },
   // apiOptions: {
   // 	region: 'eu',

@@ -54,7 +54,7 @@ const ProductList = ({ blok }: any) => {
         <div className={`grid gap-6 ${filterOpen ? 'grid-cols-3' : 'grid-cols-4'} flex-1`}>
           {products.length > 0 ? (
             products.map((product) => (
-              <ProductCard key={product.uuid} product={product.content} />
+              <ProductCard key={product.uuid} product={{ ...product.content, full_slug: product.full_slug }} />
             ))
           ) : (
             <p>No products found.</p>
