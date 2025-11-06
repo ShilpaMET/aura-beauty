@@ -92,11 +92,21 @@ export default function Feature({ blok }: any) {
               <h3 className='font-medium text-gray-800'>{product.content.name}</h3>
               <div className='flex justify-center gap-2 mt-1'>
                 <span className='text-gray-400 line-through text-sm'>
-                  ${product.content.price}
+                  {Number(product.content.price).toLocaleString('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    minimumFractionDigits: 0,
+                  })}
                 </span>
+
                 <span className='text-gray-900 font-semibold'>
-                  ${product.content.discount_price}
+                  {Number(product.content.discount_price).toLocaleString('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    minimumFractionDigits: 0,
+                  })}
                 </span>
+
               </div>
             </div>
           </div>
