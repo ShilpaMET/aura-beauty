@@ -93,8 +93,6 @@ const ProductList = ({ blok }: any) => {
     return (
         <section {...storyblokEditable(blok)} className="bg-[#F8F8F8] min-h-screen py-10">
             <div className="max-w-7xl mx-auto flex justify-between items-center mb-8 px-4">
-                <h2 className="text-2xl font-bold text-[#1E2B47]">{blok.title}</h2>
-
                 <button
                     onClick={() => setFilterOpen(!filterOpen)}
                     className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100"
@@ -108,8 +106,8 @@ const ProductList = ({ blok }: any) => {
                     <aside className="w-full lg:w-1/4 bg-white border border-gray-200 p-4 rounded-xl shadow-sm mx-auto">
                         <Filters
                             filters={blok.filters}
-                            selectedFilters={selectedFilters}
-                            onFilterChange={setSelectedFilters}
+                             appliedFilters={selectedFilters}
+                            onApplyFilters={setSelectedFilters}
                         />
                     </aside>
                 )}

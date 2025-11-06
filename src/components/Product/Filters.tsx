@@ -1,7 +1,7 @@
 'use client';
 
 import { storyblokEditable } from '@storyblok/react/rsc';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface FilterGroup {
   _uid: string;
@@ -16,18 +16,24 @@ interface FilterGroup {
 
 const Filters = ({
   filters,
-  selectedFilters,
-  onFilterChange,
+  appliedFilters,
+  onApplyFilters,
 }: {
   filters: FilterGroup[];
-  selectedFilters: Record<string, any>;
-  onFilterChange: (filters: Record<string, any>) => void;
-}) => {    
-  const setSelectedFilters = onFilterChange;
+  appliedFilters: Record<string, any>;
+  onApplyFilters: (filters: Record<string, any>) => void;
+}) => {
+  // Create a temporary state for editing
+  const [tempFilters, setTempFilters] = useState<Record<string, any>>({});
+
+  // Initialize tempFilters when appliedFilters changes
+  useEffect(() => {
+    setTempFilters(appliedFilters);
+  }, [appliedFilters]);
 
   // --- Handlers ---
   const handleReset = (group: string) => {
-    setSelectedFilters((prev: any) => {
+    setTempFilters((prev: any) => {
       const updated = { ...prev };
       delete updated[group];
       return updated;
@@ -35,14 +41,14 @@ const Filters = ({
   };
 
   const handleRangeChange = (group: string, value: number, min: number, max: number) => {
-    setSelectedFilters((prev: any) => ({
+    setTempFilters((prev: any) => ({
       ...prev,
       [group]: { min, max: value },
     }));
   };
 
   const handleCheckboxToggle = (group: string, option: string) => {
-    setSelectedFilters((prev: any) => {
+    setTempFilters((prev: any) => {
       const current = prev[group] || [];
       const updated = current.includes(option)
         ? current.filter((o: string) => o !== option)
@@ -52,10 +58,14 @@ const Filters = ({
   };
 
   const handleSwitchToggle = (group: string) => {
-    setSelectedFilters((prev: any) => ({
+    setTempFilters((prev: any) => ({
       ...prev,
       [group]: !prev[group],
     }));
+  };
+
+  const handleApply = () => {
+    onApplyFilters(tempFilters);
   };
 
   return (
@@ -84,14 +94,14 @@ const Filters = ({
                 <div
                   onClick={() => handleSwitchToggle(filter.group_name)}
                   className={`relative w-10 h-5 flex items-center rounded-full cursor-pointer transition ${
-                    selectedFilters[filter.group_name]
+                    tempFilters[filter.group_name]
                       ? 'bg-[#112D4E]'
                       : 'bg-gray-300'
                   }`}
                 >
                   <div
                     className={`absolute bg-white w-4 h-4 rounded-full transition-all ${
-                      selectedFilters[filter.group_name]
+                      tempFilters[filter.group_name]
                         ? 'translate-x-5'
                         : 'translate-x-1'
                     }`}
@@ -112,7 +122,7 @@ const Filters = ({
                   max={filter.max_price ?? 10000}
                   step="100"
                   value={
-                    selectedFilters[filter.group_name]?.max ??
+                    tempFilters[filter.group_name]?.max ??
                     Math.floor(
                       (filter.min_price ?? 0) +
                         ((filter.max_price ?? 10000) - (filter.min_price ?? 0)) / 2
@@ -135,7 +145,7 @@ const Filters = ({
                   <span className="text-gray-400">—</span>
                   <div className="bg-gray-50 border rounded-md px-3 py-1">
                     $
-                    {selectedFilters[filter.group_name]?.max ??
+                    {tempFilters[filter.group_name]?.max ??
                       filter.max_price}
                   </div>
                 </div>
@@ -147,7 +157,7 @@ const Filters = ({
               <div className="mt-3 space-y-2">
                 {filter.checkbox_options?.map((option, i) => {
                   const isChecked =
-                    selectedFilters[filter.group_name]?.includes(option);
+                    tempFilters[filter.group_name]?.includes(option);
                   return (
                     <label
                       key={i}
@@ -175,7 +185,7 @@ const Filters = ({
 
       <button
         type="button"
-        onClick={() => console.log('Applied Filters:', selectedFilters)}
+        onClick={handleApply}
         className="w-full mt-6 bg-[#112D4E] text-white py-2 rounded-md hover:bg-[#0f2442] transition"
       >
         Apply Filters
