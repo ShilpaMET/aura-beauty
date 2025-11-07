@@ -1,6 +1,5 @@
 'use client';
 
-import { storyblokEditable } from '@storyblok/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -19,7 +18,6 @@ export default function Navbar({ blok }: { blok: any }) {
 
   return (
     <nav
-      {...storyblokEditable(blok)}
       className='fixed top-0 left-0 right-0 z-50 bg-[#faf9f8] text-[#2e2e2e] shadow-sm'
     >
       <div className='max-w-7xl mx-auto px-4 py-3 flex items-center justify-between'>
