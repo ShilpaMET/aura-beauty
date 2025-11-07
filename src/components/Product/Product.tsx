@@ -19,12 +19,12 @@ export default function Product({ blok }: any) {
   return (
     <div {...storyblokEditable(blok)} className="max-w-6xl mx-auto px-4 py-12">
       {/* Back button */}
-      <button
+      {/* <button
         onClick={() => router.push('/products')}
         className="mb-8 text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2"
       >
         <FaLeftLong /> Back
-      </button>
+      </button> */}
 
       <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
         {/* Product Image */}
