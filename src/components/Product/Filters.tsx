@@ -206,14 +206,6 @@ const Filters = ({
                 <p className='text-gray-400 text-sm'>No filters available.</p>
             )}
 
-            {/* <button
-                type="button"
-                onClick={handleApply}
-                className="w-full mt-6 bg-[#112D4E] text-white py-2 rounded-md hover:bg-[#0f2442] transition"
-            >
-                Apply Filters
-            </button> */}
-
             <div className='flex gap-3 mt-6'>
                 <button
                     type='button'

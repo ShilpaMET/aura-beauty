@@ -3,6 +3,8 @@
 import { storyblokEditable } from '@storyblok/react/rsc';
 import Image from 'next/image';
 import { useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { GoArrowUpRight } from 'react-icons/go';
 
 const Hero = ({ blok }: any) => {
   const images = Array.isArray(blok.background_image)
@@ -65,9 +67,10 @@ const Hero = ({ blok }: any) => {
           )}
 
           {blok.button_label && (
-            <button className='px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition'>
-              {blok.button_label}
+            <button className='px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition flex items-center gap-2'>
+              {blok.button_label} <GoArrowUpRight />
             </button>
+
           )}
         </div>
       </div>
@@ -79,14 +82,14 @@ const Hero = ({ blok }: any) => {
             onClick={goPrev}
             className='absolute left-5 top-1/2 -translate-y-1/2 bg-black/40 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl'
           >
-            ‹
+            <FaChevronLeft size={14} />
           </button>
 
           <button
             onClick={goNext}
             className='absolute right-5 top-1/2 -translate-y-1/2 bg-black/40 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl'
           >
-            ›
+            <FaChevronRight size={14} />
           </button>
         </>
       )}
@@ -97,9 +100,8 @@ const Hero = ({ blok }: any) => {
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              current === i ? 'bg-white' : 'bg-white/40'
-            }`}
+            className={`w-3 h-3 rounded-full transition-all ${current === i ? 'bg-white' : 'bg-white/40'
+              }`}
           />
         ))}
       </div>

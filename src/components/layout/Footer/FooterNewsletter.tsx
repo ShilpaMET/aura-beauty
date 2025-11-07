@@ -1,6 +1,7 @@
 'use client';
 
 import { storyblokEditable } from '@storyblok/react';
+import { GoArrowUpRight } from 'react-icons/go';
 
 const FooterNewsletter = ({ blok }: any) => (
   <div {...storyblokEditable(blok)}>
@@ -15,9 +16,10 @@ const FooterNewsletter = ({ blok }: any) => (
       />
       <button
         type='submit'
-        className='bg-gray-700 px-4 py-2 text-white hover:bg-gray-600'
+        className='inline-flex items-center gap-2 bg-gray-700 px-4 py-2 text-white hover:bg-gray-600'
       >
         {blok.button_label}
+        <GoArrowUpRight />
       </button>
     </form>
 

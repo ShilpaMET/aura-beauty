@@ -1,5 +1,6 @@
 import { storyblokEditable, SbBlokData } from '@storyblok/react';
 import Link from 'next/link';
+import { GoArrowUpRight } from 'react-icons/go';
 
 interface AboutUsProps {
   blok: SbBlokData & {
@@ -27,11 +28,10 @@ export default function AboutUs({ blok }: AboutUsProps) {
       {/* 🖼️ Image Section */}
       {blok.image?.filename && (
         <div
-          className={`flex ${
-            isImageLeft
+          className={`flex ${isImageLeft
               ? 'md:order-1 md:justify-start' // Image on left
               : 'md:order-2 md:justify-end' // Image on right
-          }`}
+            }`}
         >
           <img
             src={blok.image.filename}
@@ -43,9 +43,8 @@ export default function AboutUs({ blok }: AboutUsProps) {
 
       {/* 📝 Text Section */}
       <div
-        className={`text-left space-y-5 ${
-          isImageLeft ? 'md:order-2' : 'md:order-1'
-        }`}
+        className={`text-left space-y-5 ${isImageLeft ? 'md:order-2' : 'md:order-1'
+          }`}
       >
         {blok.preHeading && (
           <p className='text-sm uppercase tracking-wide text-gray-500'>
@@ -64,13 +63,16 @@ export default function AboutUs({ blok }: AboutUsProps) {
         )}
 
         {blok.button_label && (
-          <Link
-            href={`/${blok.button_link?.cached_url || '/'}`}
-            className='inline-flex items-center gap-2 bg-blue-900 text-white px-5 py-2 rounded-full hover:bg-blue-800 transition-all duration-200'
-          >
-            {blok.button_label}
-            <span aria-hidden='true'>↗</span>
-          </Link>
+
+           <Link
+          href={`/${blok.button_link?.cached_url || '/'}`}
+            className='inline-flex items-center gap-2 bg-[#0a1f44] text-white px-6 py-3 rounded-full font-medium hover:bg-[#132f65] transition mt-4 md:mt-0 md:self-auto justify-center'
+        >
+          {blok.button_label}
+          <span aria-hidden='true'>
+            <GoArrowUpRight />
+          </span>
+        </Link>
         )}
       </div>
     </section>
