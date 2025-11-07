@@ -1,7 +1,8 @@
+// src/components/Product/Product.tsx
 'use client';
 import { storyblokEditable } from '@storyblok/react';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FaLeftLong } from 'react-icons/fa6';
 import { GoArrowUpRight } from 'react-icons/go';
 
@@ -11,20 +12,24 @@ export default function Product({ blok }: any) {
     Array.isArray(blok.size) ? blok.size[0] : blok.size
   );
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const toggleDesc = () => setShowFullDesc(!showFullDesc);
-
   const sizes = Array.isArray(blok.size) ? blok.size : [blok.size];
+
+  const handleBack = () => {
+    const filters = searchParams.toString();
+    router.push(`/products${filters ? '?' + filters : ''}`);
+  };
 
   return (
     <div {...storyblokEditable(blok)} className="max-w-6xl mx-auto px-4 py-12">
       {/* Back button */}
-      {/* <button
-        onClick={() => router.push('/products')}
+      <button
+        onClick={handleBack}
         className="mb-8 text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2"
       >
         <FaLeftLong /> Back
-      </button> */}
+      </button>
 
       <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
         {/* Product Image */}

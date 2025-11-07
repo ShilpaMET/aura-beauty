@@ -1,3 +1,4 @@
+// src/components/Product/Filters.tsx
 'use client';
 
 import { storyblokEditable } from '@storyblok/react/rsc';
@@ -121,14 +122,14 @@ const Filters = ({
                                 <div
                                     onClick={() => handleSwitchToggle(filter.group_name)}
                                     className={`relative w-10 h-5 flex items-center rounded-full cursor-pointer transition ${tempFilters[filter.group_name]
-                                            ? 'bg-[#112D4E]'
-                                            : 'bg-gray-300'
+                                        ? 'bg-[#112D4E]'
+                                        : 'bg-gray-300'
                                         }`}
                                 >
                                     <div
                                         className={`absolute bg-white w-4 h-4 rounded-full transition-all ${tempFilters[filter.group_name]
-                                                ? 'translate-x-5'
-                                                : 'translate-x-1'
+                                            ? 'translate-x-5'
+                                            : 'translate-x-1'
                                             }`}
                                     ></div>
                                 </div>

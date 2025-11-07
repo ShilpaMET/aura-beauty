@@ -1,16 +1,23 @@
 // src/components/Product/ProductCard.tsx
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 
 const ProductCard = ({ product }: any) => {
   const { name, price, size, image, slug, discount_price, wishlist } = product;
   const productSlug = product.full_slug || `products/${slug}`;
+  const searchParams = useSearchParams();
 
   return (
-    <Link href={`/${productSlug}`} passHref>
-      <div className='relative bg-white border border-gray-200 rounded-lg p-4 flex flex-col items-center hover:shadow-md transition'>
+    <Link
+      href={{
+        pathname: `/${productSlug}`,
+        query: Object.fromEntries(searchParams.entries()),
+      }}
+      passHref
+    >      <div className='relative bg-white border border-gray-200 rounded-lg p-4 flex flex-col items-center hover:shadow-md transition'>
         <button
           className='absolute top-3 right-3 bg-white/70 rounded-full p-1.5 z-10 cursor-default'
           disabled

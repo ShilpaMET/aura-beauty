@@ -1,3 +1,4 @@
+// src/components/Product/ProductList.tsx
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
@@ -19,6 +20,11 @@ const ProductList = ({ blok }: any) => {
     const [sortOption, setSortOption] = useState<string>('A - Z');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
+
+    const isPreview =
+        typeof window !== 'undefined' &&
+        (window.location.search.includes('_storyblok') ||
+            window.location.search.includes('storyblok_edit_mode'));
 
     useEffect(() => {
         const params = Object.fromEntries(searchParams.entries());
@@ -82,7 +88,7 @@ const ProductList = ({ blok }: any) => {
                 const storyblokApi = getStoryblokApi();
                 const { data } = await storyblokApi.get('cdn/stories', {
                     by_uuids: blok.product_refs.join(','),
-                    version:
+                    version: isPreview ||
                         process.env.NODE_ENV === 'development' ? 'draft' : 'published',
                 });
 
@@ -251,7 +257,7 @@ const ProductList = ({ blok }: any) => {
                             disabled={currentPage === 1}
                             className="px-2 py-2 border rounded-md disabled:opacity-40"
                         >
-                           <FiChevronLeft />
+                            <FiChevronLeft />
                         </button>
 
                         {Array.from({ length: Math.ceil(sortedProducts.length / itemsPerPage) }).map((_, i) => (
@@ -273,7 +279,7 @@ const ProductList = ({ blok }: any) => {
                             disabled={currentPage === Math.ceil(sortedProducts.length / itemsPerPage)}
                             className="px-2 py-2 border rounded-md disabled:opacity-40"
                         >
-                            <FiChevronRight  />
+                            <FiChevronRight />
                         </button>
                     </div>
                 )}
