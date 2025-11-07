@@ -5,6 +5,7 @@ import { storyblokEditable, getStoryblokApi } from '@storyblok/react/rsc';
 import ProductCard from './ProductCard';
 import Filters from './Filters';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const ProductList = ({ blok }: any) => {
     const router = useRouter();
@@ -16,6 +17,8 @@ const ProductList = ({ blok }: any) => {
     );
     const [loading, setLoading] = useState(true);
     const [sortOption, setSortOption] = useState<string>('A - Z');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
 
     useEffect(() => {
         const params = Object.fromEntries(searchParams.entries());
@@ -61,7 +64,6 @@ const ProductList = ({ blok }: any) => {
 
         if (sortOption) newParams.set('sort', sortOption);
 
-        // ✅ Prevent loop: only update if query actually changed
         if (newParams.toString() !== currentParams.toString()) {
             router.replace(`?${newParams.toString()}`, { scroll: false });
         }
@@ -145,6 +147,7 @@ const ProductList = ({ blok }: any) => {
         });
     }, [products, selectedFilters]);
 
+
     const sortedProducts = useMemo(() => {
         const sorted = [...filteredProducts];
         if (!sortOption) return sorted;
@@ -168,9 +171,15 @@ const ProductList = ({ blok }: any) => {
                 return priceA - priceB;
             });
         }
-
+        setCurrentPage(1);
         return sorted;
     }, [filteredProducts, sortOption]);
+
+    const paginatedProducts = useMemo(() => {
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        return sortedProducts.slice(start, end);
+    }, [sortedProducts, currentPage]);
 
     return (
         <section
@@ -222,8 +231,8 @@ const ProductList = ({ blok }: any) => {
                         <div className='col-span-full flex justify-center items-center py-20'>
                             <div className='animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-[#1E2B47]' />
                         </div>
-                    ) : sortedProducts.length > 0 ? (
-                        sortedProducts.map((product) => (
+                    ) : paginatedProducts.length > 0 ? (
+                        paginatedProducts.map((product) => (
                             <ProductCard
                                 key={product.uuid}
                                 product={{ ...product.content, full_slug: product.full_slug }}
@@ -233,6 +242,41 @@ const ProductList = ({ blok }: any) => {
                         <p>No products found.</p>
                     )}
                 </div>
+
+                {/* Pagination Controls */}
+                {sortedProducts.length > itemsPerPage && (
+                    <div className="w-full flex justify-center items-center mt-10 gap-2">
+                        <button
+                            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                            disabled={currentPage === 1}
+                            className="px-2 py-2 border rounded-md disabled:opacity-40"
+                        >
+                           <FiChevronLeft />
+                        </button>
+
+                        {Array.from({ length: Math.ceil(sortedProducts.length / itemsPerPage) }).map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => setCurrentPage(i + 1)}
+                                className={`px-3 py-1 border rounded-md ${currentPage === i + 1 ? 'bg-[#112D4E] text-white' : 'bg-white text-gray-700'}`}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+
+                        <button
+                            onClick={() =>
+                                setCurrentPage((p) =>
+                                    Math.min(p + 1, Math.ceil(sortedProducts.length / itemsPerPage))
+                                )
+                            }
+                            disabled={currentPage === Math.ceil(sortedProducts.length / itemsPerPage)}
+                            className="px-2 py-2 border rounded-md disabled:opacity-40"
+                        >
+                            <FiChevronRight  />
+                        </button>
+                    </div>
+                )}
             </div>
         </section>
     );
