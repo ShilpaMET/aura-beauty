@@ -6,7 +6,7 @@ export default function Page({ blok }: any) {
   return (
     <div
       className="space-y-10"
-      {...storyblokEditable(blok)}  // 👈 enables editable borders in Visual Editor
+      {...storyblokEditable(blok)} 
     >
       {blok.body?.map((nestedBlok: any) => (
         <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
