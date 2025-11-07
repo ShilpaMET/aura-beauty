@@ -1,12 +1,13 @@
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
+import { NextRequest } from "next/server";
 
-export async function GET(request: Request) {
+export const GET = async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
-
-  const slug = searchParams.get("slug") || "home";
+  const slug = searchParams.get("slug");
 
   const draft = await draftMode();
   draft.enable();
-  redirect(`/${slug}?_storyblok=1`);
-}
+
+  redirect(`/${slug}?${searchParams.toString()}`);
+};
