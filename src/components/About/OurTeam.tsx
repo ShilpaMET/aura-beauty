@@ -1,6 +1,7 @@
+// src/components/About/OurTeam.tsx
 'use client';
 
-import { storyblokEditable } from '@storyblok/react/rsc';
+import { storyblokEditable } from '@storyblok/react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';

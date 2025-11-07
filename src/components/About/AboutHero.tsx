@@ -1,14 +1,14 @@
+// src/app/components/About/AboutHero.tsx
 'use client';
 
 import Image from 'next/image';
-import { storyblokEditable } from '@storyblok/react/rsc';
+import { storyblokEditable } from '@storyblok/react';
 import { FaArrowDown } from 'react-icons/fa';
 import { useCallback } from 'react';
 
 const AboutHero = ({ blok }: any) => {
-  // ✅ useCallback avoids re-creating function on re-renders
   const handleScroll = useCallback(() => {
-    if (typeof window === 'undefined') return; // SSR-safe
+    if (typeof window === 'undefined') return;
     const nextSection = document.querySelector('section:nth-of-type(2)');
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
@@ -45,7 +45,6 @@ const AboutHero = ({ blok }: any) => {
         )}
       </div>
 
-      {/* ✅ Scroll button fixed bottom-left corner */}
       <button
         onClick={handleScroll}
         className='absolute right-10 bottom-10 flex items-center gap-2 text-black bg-white/80 px-4 py-2 rounded-full shadow-md hover:bg-white transition-all duration-300 z-20'
