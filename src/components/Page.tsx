@@ -1,9 +1,13 @@
-// aura-beauty/src/app/components/Page.tsx
-import { StoryblokComponent } from '@storyblok/react';
+'use client';
+
+import { StoryblokComponent, storyblokEditable } from '@storyblok/react';
 
 export default function Page({ blok }: any) {
   return (
-    <div className='space-y-10'>
+    <div
+      className="space-y-10"
+      {...storyblokEditable(blok)}  // 👈 enables editable borders in Visual Editor
+    >
       {blok.body?.map((nestedBlok: any) => (
         <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
       ))}
