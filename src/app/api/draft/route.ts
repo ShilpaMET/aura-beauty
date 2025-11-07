@@ -3,21 +3,29 @@ import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
-export const GET = async (request: NextRequest) => {
-  const { searchParams } = new URL(request.url);
-  const slug = searchParams.get("slug") || "home";
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const slugParam = searchParams.get("slug");
 
-  const draft = await draftMode();
-  draft.enable();
+    // Fallback to home if slug is missing
+    const slug = slugParam ? slugParam.replace(/^\/+/, "") : "home";
 
-  const params = new URLSearchParams(searchParams);
+    // Enable draft mode
+    const draft = await draftMode();
+    draft.enable();
 
-  if (!params.has("_storyblok")) {
-    params.append("_storyblok", "1");
+    // Rebuild query string *without* duplicating slug
+    searchParams.delete("slug");
+    const query = searchParams.toString();
+    const finalUrl = query
+      ? `/${slug}?${query}&_storyblok=1`
+      : `/${slug}?_storyblok=1`;
+
+    // Redirect to live page with draft mode on
+    return redirect(finalUrl);
+  } catch (err) {
+    console.error("Error in /api/draft route:", err);
+    return new Response("Draft route error", { status: 500 });
   }
-
-  const queryString = params.toString();
-  const redirectUrl = `/${slug}?${queryString}`;
-
-  redirect(redirectUrl);
-};
+}
