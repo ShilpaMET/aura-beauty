@@ -48,12 +48,7 @@ const Marquee = ({ blok }: any) => {
             {items.map((item, i) => (
               <div
                 key={i}
-                className='
-                  flex-shrink-0 
-                  w-full sm:w-1/2 md:w-1/2 lg:w-1/3 
-                  flex justify-center items-center text-center
-                '
-              >
+                className="flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-1/3 flex justify-center items-center text-center">
                 <span className='text-sm sm:text-base md:text-lg font-medium px-6'>
                   {item}
                 </span>
